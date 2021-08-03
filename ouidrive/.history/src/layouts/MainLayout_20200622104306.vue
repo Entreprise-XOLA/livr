@@ -1,0 +1,112 @@
+<template>
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
+      <q-toolbar>
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
+
+        <q-toolbar-title>
+       OUIDRIVE
+        </q-toolbar-title>
+
+        <div>Quasar v{{ $q.version }}</div>
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-1"
+    >
+      <q-list>
+        <q-item-label
+          header
+          class="text-grey-8"
+        >
+          Essential Links
+        </q-item-label>
+        <EssentialLink
+          v-for="link in menuList"
+          :key="link.title"
+          v-bind="link"
+        />
+      </q-list>
+    </q-drawer>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+  </q-layout>
+</template>
+
+<script>
+import EssentialLink from 'components/EssentialLink.vue'
+
+export default {
+  name: 'MainLayout',
+
+  components: {
+    EssentialLink
+  },
+
+  data () {
+    return {
+      leftDrawerOpen: false,
+     
+const menuList = [
+  {
+    icon: 'login',
+    label: 'connect',
+    separator: false,
+    link: '/connect'
+  },
+  {
+    icon: 'person',
+    label: 'Profil',
+    separator: false,
+    link: '/profil'
+  },
+  {
+    icon: 'local_taxi',
+    label: 'Commander un taxi',
+    separator: false,
+    link: '/commande'
+  },
+  {
+    icon: 'account_balance_wallet',
+    label: 'etat du compte',
+    separator: false,
+    link: '/wallet'
+  },
+  {
+    icon: 'list',
+    label: 'mes commandes',
+    separator: false,
+    link: '/listcommande'
+  },
+  {
+    icon: 'feedback',
+    label: 'Send Feedback',
+    separator: false,
+    link: '/profil'
+  },
+  {
+    icon: 'help',
+    iconColor: 'primary',
+    label: 'Help',
+    separator: false,
+    link: '/profil'
+  }
+]
+      
+    }
+  }
+}
+</script>

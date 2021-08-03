@@ -1,0 +1,11 @@
+{
+  "name": "ouidrive",
+  "version": "0.0.1",
+  "description": "Réservation de taxi ouidrive",
+  "author": "ajdyssa <adjdyssa@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/cli": "^2.0.0",
+    "@capacitor/core": "^2.0.0"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "722177999896",
+    "firebase_url": "https://ouiidrive-b9b05.firebaseio.com",
+    "project_id": "ouiidrive-b9b05",
+    "storage_bucket": "ouiidrive-b9b05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722177999896:android:e8bd336a4f11b63296af6d",
+        "android_client_info": {
+          "package_name": "com.xolatechnologie.ouiidrive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722177999896-5mdtgj5nruubucn6uedcajmng1m6pb1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjcPdMItf1ZMJsPPgnmMiX4uvFrHEZ6kI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722177999896-5mdtgj5nruubucn6uedcajmng1m6pb1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
