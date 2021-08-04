@@ -36,11 +36,11 @@
       <q-field>
         <template v-slot:control>
           <div class="self-center full-width no-outline" tabindex="0">
-            Adresse : {{ adress }}
+            Email : {{ adress }}
           </div>
         </template>
       </q-field>
-      <q-field v-if="type_client != 0" >
+      <q-field v-if="type_client != 1" >
         <template v-slot:control >
           <div  class="self-center full-width no-outline" tabindex="0">
             Montant Total Gagné : {{ solde }}
@@ -87,8 +87,8 @@ export default {
     var type_client = localStorage.getItem("type_client");
     var nom = localStorage.getItem("nom");
     var prenom = localStorage.getItem("prenom");
-    var telephone = localStorage.getItem("telephone");
-    var adress = localStorage.getItem("adress");
+    var telephone = localStorage.getItem("tel");
+    var adress = localStorage.getItem("email");
     var solde=localStorage.getItem("solde");
     //var prenom = localStorage.getItem("prenom");
         this.nom =nom;
@@ -98,9 +98,10 @@ export default {
         this.solde=solde;
     type_client = parseInt(type_client);
     console.log(adress);
-
+    
     this.id_client = localStorage.getItem("id_clients");
-    this.type_client = localStorage.getItem("type_client");
+    this.type_client = localStorage.getItem("idtype");
+    console.log(this.type_client);
   },
 
   methods: {

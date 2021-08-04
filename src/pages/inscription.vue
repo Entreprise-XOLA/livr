@@ -56,15 +56,32 @@
                   <q-icon name="mail" />
                 </template>
               </q-input>
-            <q-input filled square clearable v-model="telephone" label="Téléphone" lazy-rules
+               <q-input
+                  filled
+                  square clearable
+                  v-model="telephone"
+                  label="Téléphone portable"
+                  mask="(00228) ## - ## - ## - ##"
+                  hint="Exemple: (00228) ## - ## - ## - ##"
+                  lazy-rules
+                  :rules="[
+                    val =>
+                      (val && val.length > 24  && val.length < 27) || 'Le Numéro de téléphone est de 8 chiffres'
+                  ]"
+                >
+                <template v-slot:prepend>
+                  <q-icon name="phone" />
+                </template>
+                </q-input>
+            <!-- <q-input filled square clearable v-model="telephone" label="Téléphone" lazy-rules
                 :rules="[
                   val =>
-                    (val && val.length > 7) || 'Le Télephone  est obligatoire'
+                    (val && val.length > 13) || 'Le Télephone  est obligatoire'
                 ]" mask="## - ## - ## - ##" hint="exemple: ## - ## - ## - ##" id="telephone" onkeypress="verifierCaracteres(event); return false;"  >
                       <template v-slot:prepend>
                         <q-icon name="phone" />
                       </template>
-                    </q-input>
+                    </q-input> -->
               <q-input square clearable v-model="password" type="password" label="Choisir un mot de passe" lazy-rules
           :rules="[
             val => !!val || '*Le mot de passe est obligatoire',

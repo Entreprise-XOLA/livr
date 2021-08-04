@@ -85,19 +85,25 @@
             :done="step > 4"
             title="Entrez le telephone du destinataire"
           >
-            <q-input
-              :loading="loadingState"
-              filled
-              v-model="telephonedestinataire"
-              bg-color="grey"
-              color="white"
-              label="Entrer le telephone du destinataire"
-              :rules="[
-              val => !!val || '* Champ requis',
-              val => val.length > 2 || 'Saisissez au moins 2 caractères',
+          <q-input
+            filled
+            square clearable
+            v-model="telephonedestinataire"
+            bg-color="grey"
+            color="white"
+            label="Entrer le telephone portable du destinataire"
+            mask="(00228) ## - ## - ## - ##"
+            hint="Exemple: (00228) ## - ## - ## - ##"
+            lazy-rules
+            :rules="[
+              val =>
+                (val && val.length > 24  && val.length < 27) || 'Le Numéro de téléphone est de 8 chiffres'
             ]"
-          lazy-rules
-            />
+          >
+          <template v-slot:prepend>
+            <q-icon name="phone" />
+          </template>
+          </q-input>
           </q-step>
           <q-step
             :name="5"
@@ -355,8 +361,8 @@ export default {
     this.file = this.$refs.file.files[0];
     },
     onSubmit () {
-
-      let formData = new FormData();
+      if (this.nomdestinataire != null && this.prenomdestinataire != null && this.adressedestinataire != null && this.telephonedestinataire != null && this.note != null && this.longitude != null && this.latitude != null) {
+        let formData = new FormData();
       formData.append('idutilisateur', this.idutilisateur)
       formData.append('nomdestinataire', this.nomdestinataire)
       formData.append('prenomdestinataire', this.prenomdestinataire)
@@ -387,8 +393,15 @@ export default {
         .catch(e => {
           this.errors.push(e)
         })
-
-      //
+      } else {
+        this.$q.notify({
+            color: "negative",
+            position: "top",
+            message: "Veuillez remplir tous les champs.",
+            icon: "close"
+      });
+      }
+      
     },
     onReset () {
       this.name = null

@@ -24,15 +24,19 @@
           </q-card-section>
           <q-card-section>
             <q-form class="q-px-sm q-pt-xl">
-              <q-input filled square clearable v-model="name" label="Téléphone" lazy-rules
-                :rules="[
-                  val =>
-                    (val && val.length > 5) || 'Le Télephone  est obligatoire'
-                ]" mask="## - ## - ## - ##" hint="exemple: ## - ## - ## - ##" >
-                      <template v-slot:prepend>
-                        <q-icon name="phone" />
-                      </template>
-              </q-input>
+              <q-input
+                  filled
+                  square clearable
+                  v-model="name"
+                  label="Téléphone portable"
+                  mask="(00228) ## - ## - ## - ##"
+                  hint="Exemple: (00228) ## - ## - ## - ##"
+                  
+                >
+                <template v-slot:prepend>
+                  <q-icon name="phone" />
+                </template>
+                </q-input>
                     
               <q-input square clearable v-model="password" type="password" label="Mot de passe" >
                 <template v-slot:prepend>
@@ -126,12 +130,14 @@ export default {
             localStorage.setItem("idtype", response.data.idtype);
             localStorage.setItem("nom", response.data.nom);
             localStorage.setItem("prenom", response.data.prenom);
+            localStorage.setItem("tel", response.data.tel);
+            localStorage.setItem("email", response.data.email);
             
           } else {
             this.$q.notify({
               color: "negative",
               position: "top",
-              message: response.data.message,
+              message: "Les informations sont incorrectes",
               icon: "report_problem"
             });
           }
