@@ -59,7 +59,17 @@
           </q-item-section>
         </q-item>
         <q-separator inset />
-        <q-item to="/geo" exact>
+        <q-item v-if="type_client == 1 " to="/geo" exact>
+          <q-item-section avatar>
+            <q-icon name="room" />
+          </q-item-section>
+
+          <q-item-section>
+            Géolocalisation
+          </q-item-section>
+        </q-item>
+        <q-separator inset />
+        <q-item v-if="type_client != 1 " to="/geoenvoi" exact>
           <q-item-section avatar>
             <q-icon name="room" />
           </q-item-section>
@@ -89,7 +99,7 @@
           </q-item-section>
         </q-item>
         <q-separator inset />
-        <q-item v-if="type_client == 1 " to="/geoenvoi" exact>
+        <!-- <q-item v-if="type_client == 1 " to="/geoenvoi" exact>
           <q-item-section avatar>
             <q-icon name="list" />
           </q-item-section>
@@ -99,7 +109,7 @@
           </q-item-section>
         </q-item>
 
-        <q-separator inset />
+        <q-separator inset /> -->
         <q-item to="/feedback" exact>
           <q-item-section avatar>
             <q-icon name="feedback" />
@@ -201,7 +211,12 @@ export default {
       this.$router.push("/");
     },
      code () {
-      this.$router.push('/geoenvoi')
+       if (this.type_client==1) {
+         this.$router.push('/geo')
+       } else {
+         this.$router.push('/geoenvoi')
+       }
+      
     },
     recherche () {
       this.$router.push('/feedback')

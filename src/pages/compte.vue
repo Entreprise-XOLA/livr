@@ -40,13 +40,13 @@
           </div>
         </template>
       </q-field>
-      <q-field v-if="type_client != 1" >
+      <!-- <q-field v-if="type_client != 1" >
         <template v-slot:control >
           <div  class="self-center full-width no-outline" tabindex="0">
             Montant Total Gagné : {{ solde }}
           </div>
         </template>
-      </q-field>
+      </q-field> -->
 
       <br />
 
