@@ -68,6 +68,7 @@
                     val =>
                       (val && val.length > 24  && val.length < 27) || 'Le Numéro de téléphone est de 8 chiffres'
                   ]"
+                  onkeypress="verifierCaracteres(event); return false;"
                 >
                 <template v-slot:prepend>
                   <q-icon name="phone" />
@@ -82,7 +83,7 @@
                         <q-icon name="phone" />
                       </template>
                     </q-input> -->
-              <q-input square clearable v-model="password" type="password" label="Choisir un mot de passe" lazy-rules
+              <q-input square clearable v-model="password" type="password" label="Choisir le mot de passe" lazy-rules
           :rules="[
             val => !!val || '*Le mot de passe est obligatoire',
             val => val.length < 16 || 'Maximum 16 charactères'
@@ -91,7 +92,7 @@
                   <q-icon name="lock" />
                 </template>
               </q-input>
-              <q-input square clearable v-model="repassword" type="repassword" label="Vérifiez un mot de passe" lazy-rules
+              <q-input square clearable v-model="repassword" type="repassword" label="Confirmez le mot de passe" lazy-rules
           :rules="[
             val => !!val || '*Le mot de passe est obligatoire',
             val => val.length < 16 || 'Maximum 16 charactères'
@@ -167,13 +168,28 @@ export default {
           
       var champ = document.getElementById('telephone');
           
-      var caracteres = '0123456789';
-      if(telephone.value.length == 0) {
-        var caracteres = '123456789';
+      var caracteres = '23456789';
+          
+      if(caracteres.indexOf(touche) >= 0) {
+        if(champ.value.length == 9) {
+          var caracteres = '012345';
+        }
+        else {
+          var caracteres = '6789';
+        }
       }
-      else {
-        var caracteres = '0123456789';
-      }
+      // var keyCode = event.which ? event.which : event.keyCode;
+      // var touche = String.fromCharCode(keyCode);
+          
+      // var champ = document.getElementById('telephone');
+          
+      // var caracteres = '0123456789';
+      // if(telephone.value.length == 9) {
+      //   var caracteres = '6789';
+      // }
+      // else {
+      //   var caracteres = '0123456789';
+      // }
     },
     postInscription() {
       //const params = new URLSearchParams();

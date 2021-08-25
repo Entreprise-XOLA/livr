@@ -42,17 +42,10 @@ const routes = [
     ]
   },
   {
-    path: '/carte',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/carte.vue') }
-    ]
-  },
-  {
     path: '/new',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/commandes.vue') }
+      { path: '', component: () => import('src/pages/commandes.vue') }
     ]
   },
   {
@@ -66,7 +59,7 @@ const routes = [
     path: '/commandes',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/commandes.vue') }
+      { path: '', component: () => import('src/pages/commandes2.vue') }
     ]
   },
   {

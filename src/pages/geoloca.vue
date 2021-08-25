@@ -28,7 +28,6 @@
           >
           <div>
              <q-input
-              :loading="loadingState"
               filled
               v-model="nomdestinataire"
               bg-color="grey"
@@ -48,7 +47,6 @@
             title="Entrer le prénom du destinataire"
           >
              <q-input
-              :loading="loadingState"
               filled
               v-model="prenomdestinataire"
               bg-color="grey"
@@ -67,7 +65,6 @@
             title="Entrer l'adresse du destinataire"
           >
             <q-input
-              :loading="loadingState"
               filled
               v-model="adressedestinataire"
               bg-color="grey"
@@ -111,7 +108,6 @@
             v-if="consultypecode==3 || consultypecode==4"
           >
             <q-input
-              :loading="loadingState"
               filled
               v-model="note"
               bg-color="grey"
@@ -361,24 +357,22 @@ export default {
     this.file = this.$refs.file.files[0];
     },
     onSubmit () {
-      if (this.nomdestinataire != null && this.prenomdestinataire != null && this.adressedestinataire != null && this.telephonedestinataire != null && this.note != null && this.longitude != null && this.latitude != null) {
-        let formData = new FormData();
-      formData.append('idutilisateur', this.idutilisateur)
-      formData.append('nomdestinataire', this.nomdestinataire)
-      formData.append('prenomdestinataire', this.prenomdestinataire)
-      formData.append('adressedestinataire', this.adressedestinataire)
-      formData.append('teldestinaire', this.telephonedestinataire)
-      formData.append('note', this.note)
-      formData.append('typepaiement', this.consultypepaiement)
+      if (this.nomdestinataire != null && this.prenomdestinataire != null && this.adressedestinataire != null && this.telephonedestinataire != null && this.consultypepaiement!=null && this.longitude != null && this.latitude != null) {
+      const params = new URLSearchParams()
+      params.append('idutilisateur', this.idutilisateur)
+      params.append('nomdestinataire', this.nomdestinataire)
+      params.append('prenomdestinataire', this.prenomdestinataire)
+      params.append('adressedestinataire', this.adressedestinataire)
+      params.append('teldestinaire', this.telephonedestinataire)
+      params.append('note', this.note)
+      params.append('typepaiement', this.consultypepaiement)
 
       //formData.append('idtypecode', this.consultypecode.idtypecode)
-      formData.append('longitude', this.longitude)
-      formData.append('latitude', this.latitude)
-       axiosInstance.post(`/Livraison/ajout_commande?`, formData, { headers: { 'Content-Type': 'multipart/form-data'} })
+      params.append('longitude', this.longitude)
+      params.append('latitude', this.latitude)
+       axiosInstance.post(`/Livraison/ajout_commande?`, params)
         .then(response => {
           if (response.data.status === 201) {
-            this.message = response.data.message
-            this.numcode = response.data.numcode
             //console.log('Code Enregistré');
             this.$router.push('/home')
             this.$q.notify({
@@ -395,12 +389,12 @@ export default {
         })
       } else {
         this.$q.notify({
-            color: "negative",
-            position: "top",
-            message: "Veuillez remplir tous les champs.",
-            icon: "close"
-      });
-      }
+        color: "negative",
+        position: "top",
+        message: "Veuillez remplir tous les champs.",
+        icon: "close"
+       });
+       }
       
     },
     onReset () {

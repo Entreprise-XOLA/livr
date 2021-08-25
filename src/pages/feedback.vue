@@ -8,12 +8,12 @@
     
 
     <br>
-<q-input v-model="text1" label="Sujet" />
+<q-input v-model="objet" label="Sujet" />
 
 <br>
  <q-input
  label="Message"
-      v-model="text"
+      v-model="message1"
       filled
       type="textarea"
     />
@@ -48,24 +48,24 @@
       <q-page-container>
         <q-page class="q-pa-md">
           <div style="margin-top:20px !important;">
-            <div v-for="info in infomessages" :key="info.id_contact">
-              <div class="q-pa-md row justify-center">
-                <div style="width: 100%; max-width: 400px">
-                  <div v-if="info.message!=''">
-                  <q-chat-message
-                    :text="[info.message]"
-                    sent
-                  />
-                  </div>
-                  <div v-if="info.reponse!='' && info.reponse!=null">
-                  <q-chat-message
-                    :text="[info.reponse]"
-                  />
-                  </div>
-                </div>
-              </div>
-              </div>
-            </div>
+  <div v-for="info in infomessages" :key="info.idcontact">
+  <div class="q-pa-md row justify-center">
+    <div style="width: 100%; max-width: 400px">
+      <div v-if="info.message1!=''">
+      <q-chat-message
+        :text="[info.message1]"
+        sent
+      />
+      </div>
+      <div v-if="info.reponse!='' && info.reponse!=null">
+      <q-chat-message
+        :text="[info.reponse]"
+      />
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
         </q-page>
       </q-page-container>
     </q-layout>
@@ -89,23 +89,23 @@ export default {
     return {
       // myArr: [],
       infomessages :  [],
-      text1: null,
-      text: null,
+      objet: null,
+      message1: null,
       postBody: null
     }
   },
   mounted() {
 
-    var id_client = localStorage.getItem("id_clients");
-    var type_client = localStorage.getItem("type_client");
+    var id_client = localStorage.getItem("idutilisateur");
+    var type_client = localStorage.getItem("idtype");
     console.log(id_client);
 
     //reception de message
 
-    if(type_client == 0 || type_client == 2){
-    axiosInstance.get("/api_admin/get_message_client/"+id_client)
+    if(type_client != null ){
+    axiosInstance.get("/Livraison/affiche_reponse?idutilisateur="+id_client)
       .then(response => {
-        this.infomessages = response.data.info;
+        this.infomessages = response.data.infos;
         console.log(response.data)
       })
       .catch(() => {
@@ -118,23 +118,23 @@ export default {
       });
 }
 
-  this.id_client = localStorage.getItem("id_clients");
-  this.type_client = localStorage.getItem("type_client");
+  this.id_client = localStorage.getItem("idutilisateur");
+  this.type_client = localStorage.getItem("idtype");
   },
   methods: {
     envoimessage() {
-      //const params = new URLSearchParams();
-      //params.append("username", this.name);
-      //params.append("password", this.password);
+      const params = new URLSearchParams();
+      params.append("idutilisateur", this.id_client);
+      params.append("objet", this.objet);
+      params.append("message1", this.message1);
         
       this.type_client=0
       this.id_user=2
       this.statu=1
       this.id_precedent=1
       this.date_ajout=1
-      axiosInstance.get(
-          "/api_admin/contact/add?id_client="+this.id_client+"&objet="+this.text1 +"&message="+this.text+"&statu="+this.statu+"&id_precedent=" +this.id_precedent+
-            "&id_user="+this.id_user
+      axiosInstance.post(
+          "/Livraison/ajout_contact?idutilisateur=", params
         )
         .then(response => { 
           // envoie des infos

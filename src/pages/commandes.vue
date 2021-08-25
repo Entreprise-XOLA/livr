@@ -6,22 +6,21 @@
 "> Liste des courses </h5>
 <div v-if="variable==true">Aucune course disponible</div>
 <q-list separator >
-      <q-item v-for="info in infocommandes" :key="info.id_commande">
+      <q-item v-for="info in infocommandes" :key="info.idcourse">
         <q-item-section>
-          <q-item-label> Départ : {{ info.depart }}  </q-item-label>
+          <q-item-label> Adresse départ : {{ info.adressedepart }}  </q-item-label>
       
-           <q-item-label> ->   arrivée {{ info.arrive }}  </q-item-label>
+           <q-item-label> ->  Adresse arrivée {{ info.adressearrive }}  </q-item-label>
           <q-item-label caption lines="3">  
-          Heure De départ:  {{ info.heure_depart }}<br>
+          Date de livraison:  {{ info.datelivraison }}<br>
           <div v-if="type_client==2">
-          Client:  {{ info.nom }} {{ info.prenom }}<br>
-          Téléphone Client:  {{ info.telephone }}<br>
+          Prix livraison:  {{ info.prix }} <br>
           </div>
           </q-item-label>
         </q-item-section>
 
         <q-item-section side top>
-          <q-item-label caption> {{ info.jour_depart }}</q-item-label>
+          <q-item-label caption> {{  }}</q-item-label>
           <div v-if="info.status==0">
           <q-btn
             style="margin-top:05px; text-transform: none;"
@@ -41,14 +40,14 @@
           </q-btn>
           </div>
           <div v-if="type_client==2">
-          <q-btn
+         <!-- <q-btn
             style="margin-top:05px; text-transform: none;"
             size="10px"
             color="red"
             @click="demarre"
           >
             Démarrer<br/>
-          </q-btn>
+          </q-btn>-->
           </div>
         </q-item-section>
       </q-item>
@@ -103,35 +102,35 @@ data() {
   mounted() {
     const bar = this.$refs.bar;
      bar.start();
-        var id_client = localStorage.getItem("id_clients");
-              var type_client = localStorage.getItem("type_client");
+        var id_client = localStorage.getItem("idutilisateur");
+              var type_client = localStorage.getItem("idtype");
 
 console.log(type_client);
 console.log(id_client);
-if(type_client == 0){
-axiosInstance.get("/api_admin/get_commandes_client/"+id_client)
-      .then(response => {
-     bar.stop();
-        this.infocommandes = response.data.info;
-        console.log(response.data)
-      })
-      .catch(() => {
-        this.$q.notify({
-          color: "negative",
-          position: "top",
-          message: "Erreur de chargement de la page",
-          icon: "report_problem"
-        });
-      });
+// if(type_client == 0){
+// axiosInstance.get("/api_admin/get_commandes_client/"+id_client)
+//       .then(response => {
+//      bar.stop();
+//         this.infocommandes = response.data.info;
+//         console.log(response.data)
+//       })
+//       .catch(() => {
+//         this.$q.notify({
+//           color: "negative",
+//           position: "top",
+//           message: "Erreur de chargement de la page",
+//           icon: "report_problem"
+//         });
+//       });
 
 
-}
+// }
 if(type_client == 2){
-axiosInstance.get("/api_admin/get_commandes_conductrice/"+id_client)
+axiosInstance.get("/Livraison/liste_courselivreur?idutilisateur="+id_client)
       .then(response => {
      bar.stop();
-        this.infocommandes = response.data.info;
-        console.log(response.data)
+        this.infocommandes = response.data.infos;
+        console.log(this.infocommandes)
       })
       .catch(() => {
         this.$q.notify({
@@ -141,11 +140,9 @@ axiosInstance.get("/api_admin/get_commandes_conductrice/"+id_client)
           icon: "report_problem"
         });
       });
-
-
 }
-this.id_client = localStorage.getItem("id_clients");
-this.type_client = localStorage.getItem("type_client");
+this.id_client = localStorage.getItem("idutilisateur");
+this.type_client = localStorage.getItem("idtype");
 },
   methods: {
     appelmodalinfo(info) {
