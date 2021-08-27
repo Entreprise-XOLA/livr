@@ -26,7 +26,7 @@
           <q-card-section>
             <q-form class="q-px-sm q-pt-xl q-pb-lg">
               <q-input square clearable v-model="nom" type="nom" label="Nom" lazy-rules
-          :rules="[val => (val && val.length > 0) || 'Le nom  est obligatoire']">
+          :rules="[val => (val && val.length > 0) || 'Le nom  est obligatoire']" >
                 <template v-slot:prepend>
                   <q-icon name="person" />
                 </template>
@@ -147,6 +147,7 @@ export default {
       confirm: false,
       message: null,
       postBody: null,
+      reg1: /[0-9]/,
       reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
     }
   },
@@ -211,8 +212,10 @@ if (this.repassword === this.password) {
   //       icon: "close"
   //     });
   //     }
-
-    if (this.nom != null && this.prenom != null && this.telephone != null && this.email != null && this.validEmail!=false && this.password != null  && (this.reg.test(this.email))!=false) {
+if ((this.reg.test(this.email))!=false) {
+      
+    if (this.nom != null && this.prenom != null && this.telephone != null && this.email != null && this.password != null ) {
+      
       const params = new URLSearchParams()
       this.type_client=0
       this.idrole=4
@@ -265,6 +268,14 @@ if (this.repassword === this.password) {
         icon: "close"
       });
         }
+        } else {
+         this.$q.notify({
+        color: "negative",
+        position: "top",
+        message: "Votre email est incorrect",
+        icon: "close"
+      });
+      }
 } else {
   this.$q.notify({
         color: "negative",

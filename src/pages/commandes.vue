@@ -8,9 +8,9 @@
 <q-list separator >
       <q-item v-for="info in infocommandes" :key="info.idcourse">
         <q-item-section>
-          <q-item-label> Adresse départ : {{ info.adressedepart }}  </q-item-label>
+          <!-- <q-item-label> Adresse départ : {{ info.adressedepart }}  </q-item-label> -->
       
-           <q-item-label> ->  Adresse arrivée {{ info.adressearrive }}  </q-item-label>
+           <q-item-label> ->  Adresse arrivée : {{ info.adressedestinataire }}  </q-item-label>
           <q-item-label caption lines="3">  
           Date de livraison:  {{ info.datelivraison }}<br>
           <div v-if="type_client==2">
@@ -40,14 +40,14 @@
           </q-btn>
           </div>
           <div v-if="type_client==2">
-         <!-- <q-btn
+          <q-btn
             style="margin-top:05px; text-transform: none;"
             size="10px"
             color="red"
-            @click="demarre"
+            @click="demarre(info.idcourse)"
           >
-            Démarrer<br/>
-          </q-btn>-->
+            Emplacement<br/> commande
+          </q-btn>
           </div>
         </q-item-section>
       </q-item>
@@ -152,25 +152,29 @@ this.type_client = localStorage.getItem("idtype");
     this.fullWidth = true
     this.titrearticle = info.title.rendered
     },
-    demarre(){
-      var tel = localStorage.getItem("telephone");
-      // this.prixprima = 50000;
-      console.log(tel);
-      
-      this.$q.dialog({
-        title: 'Souscription',
-        message: 'Vous confirmer votre action?',
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        console.log('Soumission effectuée')
-      }).onOk(() => {
-        // console.log('>>>> second OK catcher')
-      }).onCancel(() => {
-        // console.log('>>>> second OK catcher')
-      }).onDismiss(() => {
-        // console.log('I am triggered on both OK and Cancel')
-      })
+    demarre(idcourse){
+      console.log(idcourse);
+      localStorage.setItem('idcourse', idcourse);
+      this.$router.push('/navigationcode/idcourse='+idcourse)
+      //  axiosInstance.get('/Livraison/liste_courselivreurgeo?idutilisateur='+this.id_client+'&idcourse='+idcourse)
+      //   .then((response) => {
+      //     this.latitude = response.data.infos[0].latitude
+      //     this.longitude = response.data.infos[0].longitude
+      //     console.log(this.latitude);
+      //     console.log(this.longitude);
+      //     this.$q.notify({
+      //       color: 'positive',
+      //       position: 'top',
+      //       message: 'Livreur supprimé avec succès',
+      //       icon: 'report_problem'
+      //     })
+      //       axiosInstance.get('/Livraison/liste_livreur?')
+      //     .then((response) => {
+      //       this.listecode = response.data.infos
+      //       // this.graph = true
+      //       console.log(this.listecode)
+      //     })
+      //   })
     }
   }
 }

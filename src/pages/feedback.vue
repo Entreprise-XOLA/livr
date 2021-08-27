@@ -123,6 +123,7 @@ export default {
   },
   methods: {
     envoimessage() {
+      if( this.id_client != null && this.objet != null && this.message1 != null) {
       const params = new URLSearchParams();
       params.append("idutilisateur", this.id_client);
       params.append("objet", this.objet);
@@ -155,12 +156,19 @@ export default {
           this.$q.notify({
             color: "negative",
             position: "top",
-            message: "Erreur d'envoie du message'",
+            message: "Erreur d'envoie du message",
             icon: "report_problem"
           });
         });
       // this.$router.push('/accueil')
-      
+      } else {
+        this.$q.notify({
+            color: "negative",
+            position: "top",
+            message: "Veuillez remplir tous les champs",
+            icon: "report_problem"
+          });
+      }
     }
   }
 }

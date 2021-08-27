@@ -13,6 +13,13 @@ const routes = [
     ]
   },
   {
+    path: '/navigationcode/:idcourse',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/navigationcode.vue') }
+    ]
+  },
+  {
     path: '/geoenvoi',
     component: () => import('layouts/MainLayout.vue'),
     children: [

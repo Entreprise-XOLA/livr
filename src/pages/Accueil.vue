@@ -10,7 +10,7 @@
 
             />
     </q-card>
-        <div  class="q-pa-md q-gutter-sm" >
+        <div  class="q-pa-md q-gutter-sm">
     <q-btn
       size="14px"
       style="background: #0f9743; color: white; width: 280px; text-transform: none;"
@@ -61,11 +61,22 @@ FCM.getToken(function(token){
 export default {
   data () {
     return {
+      type_client: null,
     }
+  },
+  mounted() {
+    this.id_client = localStorage.getItem("idutilisateur");
+      this.type_client = localStorage.getItem("idtype");
+      console.log(this.type_client);
+      console.log(this.id_client);
   },
   methods: {
     position(){
-      this.$router.push('/geo')
+      if (this.type_client==1) {
+         this.$router.push('/geo')
+       } else {
+         this.$router.push('/geoenvoi')
+       }
     }
   },
   mounted () {

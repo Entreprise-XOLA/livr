@@ -190,7 +190,8 @@ export default {
   data() {
     return {
       leftDrawerOpen: false,
-      type_client: null
+      type_client: null,
+      tab: ''
     };
   },
   mounted() {
